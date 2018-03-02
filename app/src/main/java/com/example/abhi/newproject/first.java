@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,7 @@ public class first extends AppCompatActivity {
  EditText email1;
  EditText password1;
  String email,password;
+ TextView notregistedyet;
  //ProgressBar pbar;
 
     @Override
@@ -32,9 +34,17 @@ public class first extends AppCompatActivity {
         signup=(Button)findViewById(R.id.login_button);
         email1=(EditText)findViewById(R.id.email);
         password1=(EditText)findViewById(R.id.password);
+        notregistedyet=(TextView)findViewById(R.id.t1);
        //pbar=(ProgressBar)findViewById(R.id.progressBar);
 
         mAuth = FirebaseAuth.getInstance();
+        notregistedyet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(first.this,second.class);
+                startActivity(i);
+            }
+        });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override

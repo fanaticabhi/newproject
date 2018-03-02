@@ -9,9 +9,11 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +24,7 @@ import java.util.Map;
 
 public class second extends AppCompatActivity {
     Button register;
-    EditText username,password,email;
+    EditText username,password1,email1,contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,9 @@ public class second extends AppCompatActivity {
 
         register = (Button) findViewById(R.id.register);
         username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        email = (EditText) findViewById(R.id.email);
+        contact = (EditText) findViewById(R.id.contactno);
+        password1 = (EditText) findViewById(R.id.password);
+        email1 = (EditText) findViewById(R.id.email);
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -44,9 +47,10 @@ public class second extends AppCompatActivity {
 
     }
     private void userregistration(){
-        final String username1=username.getText().toString();
-        final String password1=password.getText().toString();
-        final String email1=email.getText().toString();
+        final String name=username.getText().toString();
+        final String password=password1.getText().toString();
+        final String email=email1.getText().toString();
+        final String contactno=contact.getText().toString();
 
 
         StringRequest srequest=new StringRequest(Request.Method.POST, constant.login_url,
@@ -75,15 +79,18 @@ public class second extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("username", username1);
-                params.put("email", email1);
-                params.put("password", password1);
+                params.put("username", name);
+                params.put("email", email);
+                params.put("email", contactno);
+                params.put("password", password);
                 return params;
             }
 
 
-        };
-        RequestHandler.getInstance(this).addToRequestQueue(srequest);
+
+        };RequestQueue q = Volley.newRequestQueue(second.this);
+        q.add(srequest);
+
 
 
 
